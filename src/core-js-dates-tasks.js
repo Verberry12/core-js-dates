@@ -17,8 +17,12 @@
  * '01 Jan 1970 00:00:00 UTC' => 0
  * '04 Dec 1995 00:12:00 UTC' => 818035920000
  */
-function dateToTimestamp(/* date */) {
-  throw new Error('Not implemented');
+function dateToTimestamp(date) {
+  const dateObj = new Date(date);
+
+  const milliseconds = dateObj.getTime();
+
+  return milliseconds;
 }
 
 /**
@@ -31,8 +35,14 @@ function dateToTimestamp(/* date */) {
  * Date(2023, 5, 1, 8, 20, 55) => '08:20:55'
  * Date(2015, 10, 20, 23, 15, 1) => '23:15:01'
  */
-function getTime(/* date */) {
-  throw new Error('Not implemented');
+function getTime(date) {
+  const hoursAsStr = String(date.getHours()).padStart(2, '0');
+  const minutesAsStr = String(date.getMinutes()).padStart(2, '0');
+  const secondsAsStr = String(date.getSeconds()).padStart(2, '0');
+
+  const timeAsStr = `${hoursAsStr}:${minutesAsStr}:${secondsAsStr}`;
+
+  return timeAsStr;
 }
 
 /**
@@ -46,8 +56,38 @@ function getTime(/* date */) {
  * '03 Dec 1995 00:12:00 UTC' => 'Sunday'
  * '2024-01-30T00:00:00.000Z' => 'Tuesday'
  */
-function getDayName(/* date */) {
-  throw new Error('Not implemented');
+function getDayName(date) {
+  const dateObj = new Date(date);
+  const dayNumber = dateObj.getDay();
+  let dayName = '';
+
+  switch (dayNumber) {
+    case 0:
+      dayName = 'Sunday';
+      break;
+    case 1:
+      dayName = 'Monday';
+      break;
+    case 2:
+      dayName = 'Tuesday';
+      break;
+    case 3:
+      dayName = 'Wednesday';
+      break;
+    case 4:
+      dayName = 'Thursday';
+      break;
+    case 5:
+      dayName = 'Friday';
+      break;
+    case 6:
+      dayName = 'Saturday';
+      break;
+    default:
+      throw new Error('error');
+  }
+
+  return dayName;
 }
 
 /**
@@ -63,6 +103,34 @@ function getDayName(/* date */) {
  */
 function getNextFriday(/* date */) {
   throw new Error('Not implemented');
+  // let newDay = 0;
+  // switch (date.getDay()) {
+  //   case 0:
+  //     newDay = ;
+  //     break;
+  //   case 1:
+  //     newDay = ;
+  //     break;
+  //   case 2:
+  //     newDay = ;
+  //     break;
+  //   case 3:
+  //     newDay = ;
+  //     break;
+  //   case 4:
+  //     newDay = ;
+  //     break;
+  //   case 5:
+  //     newDay = ;
+  //     break;
+  //   case 6:
+  //     newDay = ;
+  //     break;
+  //   default:
+  //     throw new Error('error');
+  // }
+  // const newDate = date.setDate(newDay);
+  // return newDate;
 }
 
 /**
