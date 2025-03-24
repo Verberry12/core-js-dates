@@ -153,8 +153,8 @@ function getCountDaysInMonth(month, year) {
   let checkOnLeapYear = false;
 
   if (
-    (year % 1000 !== 0 && year % 4 === 0) ||
-    (year % 1000 === 0 && year % 400 === 0)
+    (year % 100 !== 0 && year % 4 === 0) ||
+    (year % 100 === 0 && year % 400 === 0)
   ) {
     checkOnLeapYear = true;
   }
@@ -200,8 +200,26 @@ function getCountDaysInMonth(month, year) {
  * '2024-02-01T00:00:00.000Z', '2024-02-02T00:00:00.000Z'  => 2
  * '2024-02-01T00:00:00.000Z', '2024-02-12T00:00:00.000Z'  => 12
  */
-function getCountDaysOnPeriod(/* dateStart, dateEnd */) {
-  throw new Error('Not implemented');
+function getCountDaysOnPeriod(dateStart, dateEnd) {
+  const dateStartObj = new Date(dateStart);
+  const dateEndObj = new Date(dateEnd);
+
+  const startYear = dateStartObj.getYear();
+  const startMonth = dateStartObj.getMonth();
+  const startDay = dateStartObj.getDate();
+
+  const utcDateStart = new Date(Date.UTC(startYear, startMonth, startDay));
+
+  const endYear = dateEndObj.getYear();
+  const endMonth = dateEndObj.getMonth();
+  const endDay = dateEndObj.getDate();
+
+  const utcDateEnd = new Date(Date.UTC(endYear, endMonth, endDay));
+
+  const periodOfMilliseconds = utcDateEnd - utcDateStart;
+  const periodOfDays = periodOfMilliseconds / (1000 * 60 * 60 * 24) + 1;
+
+  return periodOfDays;
 }
 
 /**
