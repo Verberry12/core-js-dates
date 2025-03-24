@@ -62,9 +62,6 @@ function getDayName(date) {
   let dayName = '';
 
   switch (dayNumber) {
-    case 0:
-      dayName = 'Sunday';
-      break;
     case 1:
       dayName = 'Monday';
       break;
@@ -82,6 +79,9 @@ function getDayName(date) {
       break;
     case 6:
       dayName = 'Saturday';
+      break;
+    case 0:
+      dayName = 'Sunday';
       break;
     default:
       throw new Error('error');
@@ -101,36 +101,40 @@ function getDayName(date) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
-  // let newDay = 0;
-  // switch (date.getDay()) {
-  //   case 0:
-  //     newDay = ;
-  //     break;
-  //   case 1:
-  //     newDay = ;
-  //     break;
-  //   case 2:
-  //     newDay = ;
-  //     break;
-  //   case 3:
-  //     newDay = ;
-  //     break;
-  //   case 4:
-  //     newDay = ;
-  //     break;
-  //   case 5:
-  //     newDay = ;
-  //     break;
-  //   case 6:
-  //     newDay = ;
-  //     break;
-  //   default:
-  //     throw new Error('error');
-  // }
-  // const newDate = date.setDate(newDay);
-  // return newDate;
+function getNextFriday(date) {
+  let nextFridayShift = 0;
+
+  switch (date.getDay()) {
+    case 1:
+      nextFridayShift = 4;
+      break;
+    case 2:
+      nextFridayShift = 3;
+      break;
+    case 3:
+      nextFridayShift = 2;
+      break;
+    case 4:
+      nextFridayShift = 1;
+      break;
+    case 5:
+      nextFridayShift = 7;
+      break;
+    case 6:
+      nextFridayShift = 6;
+      break;
+    case 0:
+      nextFridayShift = 5;
+      break;
+    default:
+      throw new Error('error');
+  }
+
+  const newDate = Object.assign(date);
+
+  newDate.setDate(date.getDate() + nextFridayShift);
+
+  return newDate;
 }
 
 /**
